@@ -77,11 +77,13 @@ const char* api_id_to_string(uint32_t api_id) {
 // 打印十六进制数据
 void print_hex(const char* label, const unsigned char* data, size_t len) {
     printf("  %s: ", label);
-    for (size_t i = 0; i < len && i < 16; i++) {
-        printf("%02X", data[i]);
+    for (size_t i = 0; i < len; i++) {
+        if (i % 16 == 0 ) {
+            printf("\n");
+        }
+        printf("%02X ", data[i]);
     }
-    if (len > 16) printf("...");
-    printf(" (%zu bytes)\n", len);
+    printf("\n (%zu bytes)\n", len);
 }
 
 // 打印字符串（处理非终止字符串）
