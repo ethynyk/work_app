@@ -164,8 +164,8 @@ void parse_get_func_payload(const uint8_t* data, uint32_t payload_bytes) {
     
     bm1688_get_func_internal_t* payload = (bm1688_get_func_internal_t*)data;
     
-    printf("  核心ID: %d\n", payload->core_id);
-    printf("  函数ID: %d\n", payload->f_id);
+    printf("  core ID: %d\n", payload->core_id);
+    printf("  func_id: 0x%x\n", payload->f_id);
     print_hex("MD5", payload->md5, MD5SUM_LEN);
     print_string("函数名称", payload->func_name, FUNC_MAX_NAME_LEN);
 }
@@ -187,8 +187,8 @@ void parse_launch_func_payload(const uint8_t* data, uint32_t payload_bytes) {
     memcpy(&f_id, data, sizeof(int32_t));
     memcpy(&param_size, data + sizeof(int32_t), sizeof(uint32_t));
     
-    printf("  函数ID: %d\n", f_id);
-    printf("  参数大小: %u 字节\n", param_size);
+    printf("  func_id: 0x%x\n", f_id);
+    printf("  param size: %u 字节\n", param_size);
     
     // 计算可用的参数数据大小
     size_t param_offset = sizeof(int32_t) + sizeof(uint32_t);
