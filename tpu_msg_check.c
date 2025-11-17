@@ -197,7 +197,7 @@ void parse_launch_func_payload(const uint8_t* data, uint32_t payload_bytes) {
     printf("  可用参数数据: %zu 字节\n", available_param_bytes);
     
     if (available_param_bytes > 0) {
-        size_t display_size = (available_param_bytes < 64) ? available_param_bytes : 64;
+        size_t display_size = available_param_bytes;//(available_param_bytes < 64) ? available_param_bytes : 64;
         print_hex("参数预览", data + param_offset, display_size);
         
         if (param_size > available_param_bytes) {
