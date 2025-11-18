@@ -6,18 +6,18 @@
 
 # Core0 配置
 CORE0_BASE_ADDR=0x2580C000
-CORE0_BUFFER_SIZE=0x8000          # 缓冲区大小（字节）0x2000 * 4
+CORE0_BUFFER_SIZE=8192          # 缓冲区大小（字节）((1<<12)/2) * 4
 CORE0_RP_ADDR=0x28100084          # 读指针寄存器地址
 CORE0_WP_ADDR=0x28100080          # 写指针寄存器地址
 
 # Core1 配置（在Core0基础上偏移）
 CORE1_BASE_ADDR=0x2581C000        # Core0基地址 + 0x10000
-CORE1_BUFFER_SIZE=0x8000          # 与Core0大小相同
+CORE1_BUFFER_SIZE=8192          # 与Core0大小相同
 CORE1_RP_ADDR=0x281000BC          # Core0读指针地址 + 14 * 4 = 0x38
 CORE1_WP_ADDR=0x281000B8          # Core0写指针地址 + 14 * 4 = 0x38
 
 # 输出文件配置
-OUTPUT_PREFIX="shared_buffer"
+OUTPUT_PREFIX="dump_tpu_fifo"
 CORE0_OUTPUT_FILE="${OUTPUT_PREFIX}_core0.bin"
 CORE1_OUTPUT_FILE="${OUTPUT_PREFIX}_core1.bin"
 
@@ -355,11 +355,11 @@ main() {
     fi
     
     case $target in
-        "core0")
+        "0" | "core0")
             read_shared_buffer "Core0" $CORE0_BASE_ADDR $CORE0_BUFFER_SIZE \
                                $CORE0_RP_ADDR $CORE0_WP_ADDR $CORE0_OUTPUT_FILE
             ;;
-        "core1")
+        "1" | "core1")
             read_shared_buffer "Core1" $CORE1_BASE_ADDR $CORE1_BUFFER_SIZE \
                                $CORE1_RP_ADDR $CORE1_WP_ADDR $CORE1_OUTPUT_FILE
             ;;
